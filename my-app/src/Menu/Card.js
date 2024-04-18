@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
   MDBCard,
   MDBCardImage,
@@ -14,31 +14,42 @@ import Cake from "./Image/Cake.jpg";
 import Pizza from "./Image/PIZZA.jpg";
 import Muffin from "./Image/Muffin.png";
 import Samosa from "./Image/Samosa.jpeg";
-import Chilli from './Image/Chilli.jpg';
-import ChickenRice from './Image/ChickenRice.jpg';
-import eggschezwan from './Image/eggschezwan.jpg';
-import Fried from './Image/Fried.jpg';
-import Gravy from './Image/Gravy.jpg';
-import Legpiece from './Image/Legpiece.jpg';
-import Lolipop from './Image/Lolipop.jpg';
-import Manchurian from './Image/Manchurian.jpg';
-import Noodles from './Image/Noodles.jpg';
-import SchezwanRice from './Image/SchezwanRice.jpg';
-import Soup from './Image/Soup.jpg';
+import Chilli from "./Image/Chilli.jpg";
+import ChickenRice from "./Image/ChickenRice.jpg";
+import eggschezwan from "./Image/eggschezwan.jpg";
+import Fried from "./Image/Fried.jpg";
+import Gravy from "./Image/Gravy.jpg";
+import Legpiece from "./Image/Legpiece.jpg";
+import Lolipop from "./Image/Lolipop.jpg";
+import Manchurian from "./Image/Manchurian.jpg";
+import Noodles from "./Image/Noodles.jpg";
+import SchezwanRice from "./Image/SchezwanRice.jpg";
+import Soup from "./Image/Soup.jpg";
 import { Canvas } from "@react-three/fiber";
 import { ARButton, XR } from "@react-three/xr";
 import XrHitModel from "../xr-hit-model/XrHitModel";
-
+import { useNavigate } from "react-router-dom";
+import { XRSession } from "@react-three/xr";
+import { useXR } from "@react-three/xr";
 export default function App() {
   const [selectedFood, setSelectedFood] = useState(null);
+  const [error, setError] = useState(false); // State to handle errors
+  const navigate = useNavigate();
 
   const handleARButtonClick = (title) => {
     setSelectedFood(title);
+    setArEnabled((prevArEnabled) => !prevArEnabled);
+  };
+
+  const [arEnabled, setArEnabled] = useState(false);
+
+  const toggleAR = () => {
+    window.location.replace("/menu");
   };
 
   return (
     <div>
-      
+
       <MDBRow className="row-cols-1 row-cols-md-4 g-4 p-4">
         <MDBCol>
           <MDBCard>
@@ -52,19 +63,33 @@ export default function App() {
               <MDBCardTitle>Chicken Chilli Dry</MDBCardTitle>
               <MDBCardTitle>Price: ₹ 340</MDBCardTitle>
               <MDBBtn>
-                <div style={{ display: "flex", alignItems: "center" }}>
-                  <ARButton
-                    sessionInit={{
-                      requiredFeatures: ["hit-test"],
-                    }}
-                    style={{
-                      border: "none",
-                      backgroundColor: "inherit",
-                      marginRight: "5px",
-                      color: "white",
-                    }}
-                    onClick={() => handleARButtonClick("Chilli")}
-                  />
+              <div style={{ display: "flex", alignItems: "center" }}>
+                  {arEnabled ? (
+                    <button
+                      style={{
+                        border: "none",
+                        backgroundColor: "inherit",
+                        marginRight: "5px",
+                        color: "white",
+                      }}
+                      onClick={toggleAR}
+                    >
+                      Exit AR
+                    </button>
+                  ) : (
+                    <ARButton
+                      sessionInit={{
+                        requiredFeatures: ["hit-test"],
+                      }}
+                      style={{
+                        border: "none",
+                        backgroundColor: "inherit",
+                        marginRight: "5px",
+                        color: "white",
+                      }}
+                      onClick={() => handleARButtonClick("Chilli")}
+                    />
+                  )}
                 </div>
               </MDBBtn>
             </MDBCardBody>
@@ -82,19 +107,33 @@ export default function App() {
               <MDBCardTitle>Chicken Lolipop</MDBCardTitle>
               <MDBCardTitle>Price: ₹ 300</MDBCardTitle>
               <MDBBtn>
-                <div style={{ display: "flex", alignItems: "center" }}>
-                  <ARButton
-                    sessionInit={{
-                      requiredFeatures: ["hit-test"],
-                    }}
-                    style={{
-                      border: "none",
-                      backgroundColor: "inherit",
-                      marginRight: "5px",
-                      color: "white",
-                    }}
-                    onClick={() => handleARButtonClick("Lolipop")}
-                  />
+              <div style={{ display: "flex", alignItems: "center" }}>
+                  {arEnabled ? (
+                    <button
+                      style={{
+                        border: "none",
+                        backgroundColor: "inherit",
+                        marginRight: "5px",
+                        color: "white",
+                      }}
+                      onClick={toggleAR}
+                    >
+                      Exit AR
+                    </button>
+                  ) : (
+                    <ARButton
+                      sessionInit={{
+                        requiredFeatures: ["hit-test"],
+                      }}
+                      style={{
+                        border: "none",
+                        backgroundColor: "inherit",
+                        marginRight: "5px",
+                        color: "white",
+                      }}
+                      onClick={() => handleARButtonClick("Lolipop")}
+                    />
+                  )}
                 </div>
               </MDBBtn>
             </MDBCardBody>
@@ -112,19 +151,33 @@ export default function App() {
               <MDBCardTitle>Legpiece</MDBCardTitle>
               <MDBCardTitle>Price: ₹ 350</MDBCardTitle>
               <MDBBtn>
-                <div style={{ display: "flex", alignItems: "center" }}>
-                  <ARButton
-                    sessionInit={{
-                      requiredFeatures: ["hit-test"],
-                    }}
-                    style={{
-                      border: "none",
-                      backgroundColor: "inherit",
-                      marginRight: "5px",
-                      color: "white",
-                    }}
-                    onClick={() => handleARButtonClick("Model")}
-                  />
+              <div style={{ display: "flex", alignItems: "center" }}>
+                  {arEnabled ? (
+                    <button
+                      style={{
+                        border: "none",
+                        backgroundColor: "inherit",
+                        marginRight: "5px",
+                        color: "white",
+                      }}
+                      onClick={toggleAR}
+                    >
+                      Exit AR
+                    </button>
+                  ) : (
+                    <ARButton
+                      sessionInit={{
+                        requiredFeatures: ["hit-test"],
+                      }}
+                      style={{
+                        border: "none",
+                        backgroundColor: "inherit",
+                        marginRight: "5px",
+                        color: "white",
+                      }}
+                      onClick={() => handleARButtonClick("Model")}
+                    />
+                  )}
                 </div>
               </MDBBtn>
             </MDBCardBody>
@@ -142,19 +195,33 @@ export default function App() {
               <MDBCardTitle>Fried Rice</MDBCardTitle>
               <MDBCardTitle>Price: ₹ 140</MDBCardTitle>
               <MDBBtn>
-                <div style={{ display: "flex", alignItems: "center" }}>
-                  <ARButton
-                    sessionInit={{
-                      requiredFeatures: ["hit-test"],
-                    }}
-                    style={{
-                      border: "none",
-                      backgroundColor: "inherit",
-                      marginRight: "5px",
-                      color: "white",
-                    }}
-                    onClick={() => handleARButtonClick("Fried")}
-                  />
+              <div style={{ display: "flex", alignItems: "center" }}>
+                  {arEnabled ? (
+                    <button
+                      style={{
+                        border: "none",
+                        backgroundColor: "inherit",
+                        marginRight: "5px",
+                        color: "white",
+                      }}
+                      onClick={toggleAR}
+                    >
+                      Exit AR
+                    </button>
+                  ) : (
+                    <ARButton
+                      sessionInit={{
+                        requiredFeatures: ["hit-test"],
+                      }}
+                      style={{
+                        border: "none",
+                        backgroundColor: "inherit",
+                        marginRight: "5px",
+                        color: "white",
+                      }}
+                      onClick={() => handleARButtonClick("Fried")}
+                    />
+                  )}
                 </div>
               </MDBBtn>
             </MDBCardBody>
@@ -172,19 +239,33 @@ export default function App() {
               <MDBCardTitle>Noodles</MDBCardTitle>
               <MDBCardTitle>Price: ₹ 150</MDBCardTitle>
               <MDBBtn>
-                <div style={{ display: "flex", alignItems: "center" }}>
-                  <ARButton
-                    sessionInit={{
-                      requiredFeatures: ["hit-test"],
-                    }}
-                    style={{
-                      border: "none",
-                      backgroundColor: "inherit",
-                      marginRight: "5px",
-                      color: "white",
-                    }}
-                    onClick={() => handleARButtonClick("Noodles")}
-                  />
+              <div style={{ display: "flex", alignItems: "center" }}>
+                  {arEnabled ? (
+                    <button
+                      style={{
+                        border: "none",
+                        backgroundColor: "inherit",
+                        marginRight: "5px",
+                        color: "white",
+                      }}
+                      onClick={toggleAR}
+                    >
+                      Exit AR
+                    </button>
+                  ) : (
+                    <ARButton
+                      sessionInit={{
+                        requiredFeatures: ["hit-test"],
+                      }}
+                      style={{
+                        border: "none",
+                        backgroundColor: "inherit",
+                        marginRight: "5px",
+                        color: "white",
+                      }}
+                      onClick={() => handleARButtonClick("Noodles")}
+                    />
+                  )}
                 </div>
               </MDBBtn>
             </MDBCardBody>
@@ -202,19 +283,33 @@ export default function App() {
               <MDBCardTitle>Schezwan Fried Rice</MDBCardTitle>
               <MDBCardTitle>Price: ₹ 150</MDBCardTitle>
               <MDBBtn>
-                <div style={{ display: "flex", alignItems: "center" }}>
-                  <ARButton
-                    sessionInit={{
-                      requiredFeatures: ["hit-test"],
-                    }}
-                    style={{
-                      border: "none",
-                      backgroundColor: "inherit",
-                      marginRight: "5px",
-                      color: "white",
-                    }}
-                    onClick={() => handleARButtonClick("SchezwanRice")}
-                  />
+              <div style={{ display: "flex", alignItems: "center" }}>
+                  {arEnabled ? (
+                    <button
+                      style={{
+                        border: "none",
+                        backgroundColor: "inherit",
+                        marginRight: "5px",
+                        color: "white",
+                      }}
+                      onClick={toggleAR}
+                    >
+                      Exit AR
+                    </button>
+                  ) : (
+                    <ARButton
+                      sessionInit={{
+                        requiredFeatures: ["hit-test"],
+                      }}
+                      style={{
+                        border: "none",
+                        backgroundColor: "inherit",
+                        marginRight: "5px",
+                        color: "white",
+                      }}
+                      onClick={() => handleARButtonClick("SchezwanRice")}
+                    />
+                  )}
                 </div>
               </MDBBtn>
             </MDBCardBody>
@@ -232,19 +327,33 @@ export default function App() {
               <MDBCardTitle>Egg Schezwan Fried Rice</MDBCardTitle>
               <MDBCardTitle>Price: ₹ 170</MDBCardTitle>
               <MDBBtn>
-                <div style={{ display: "flex", alignItems: "center" }}>
-                  <ARButton
-                    sessionInit={{
-                      requiredFeatures: ["hit-test"],
-                    }}
-                    style={{
-                      border: "none",
-                      backgroundColor: "inherit",
-                      marginRight: "5px",
-                      color: "white",
-                    }}
-                    onClick={() => handleARButtonClick("EggSchezwan")}
-                  />
+               <div style={{ display: "flex", alignItems: "center" }}>
+                  {arEnabled ? (
+                    <button
+                      style={{
+                        border: "none",
+                        backgroundColor: "inherit",
+                        marginRight: "5px",
+                        color: "white",
+                      }}
+                      onClick={toggleAR}
+                    >
+                      Exit AR
+                    </button>
+                  ) : (
+                    <ARButton
+                      sessionInit={{
+                        requiredFeatures: ["hit-test"],
+                      }}
+                      style={{
+                        border: "none",
+                        backgroundColor: "inherit",
+                        marginRight: "5px",
+                        color: "white",
+                      }}
+                      onClick={() => handleARButtonClick("EggSchezwan")}
+                    />
+                  )}
                 </div>
               </MDBBtn>
             </MDBCardBody>
@@ -262,19 +371,33 @@ export default function App() {
               <MDBCardTitle>Manchurian</MDBCardTitle>
               <MDBCardTitle>Price: ₹ 160</MDBCardTitle>
               <MDBBtn>
-                <div style={{ display: "flex", alignItems: "center" }}>
-                  <ARButton
-                    sessionInit={{
-                      requiredFeatures: ["hit-test"],
-                    }}
-                    style={{
-                      border: "none",
-                      backgroundColor: "inherit",
-                      marginRight: "5px",
-                      color: "white",
-                    }}
-                    onClick={() => handleARButtonClick("Manchurian")}
-                  />
+              <div style={{ display: "flex", alignItems: "center" }}>
+                  {arEnabled ? (
+                    <button
+                      style={{
+                        border: "none",
+                        backgroundColor: "inherit",
+                        marginRight: "5px",
+                        color: "white",
+                      }}
+                      onClick={toggleAR}
+                    >
+                      Exit AR
+                    </button>
+                  ) : (
+                    <ARButton
+                      sessionInit={{
+                        requiredFeatures: ["hit-test"],
+                      }}
+                      style={{
+                        border: "none",
+                        backgroundColor: "inherit",
+                        marginRight: "5px",
+                        color: "white",
+                      }}
+                      onClick={() => handleARButtonClick("Manchurian")}
+                    />
+                  )}
                 </div>
               </MDBBtn>
             </MDBCardBody>
@@ -292,19 +415,33 @@ export default function App() {
               <MDBCardTitle>Chicken Fried Rice</MDBCardTitle>
               <MDBCardTitle>Price: ₹ 210</MDBCardTitle>
               <MDBBtn>
-                <div style={{ display: "flex", alignItems: "center" }}>
-                  <ARButton
-                    sessionInit={{
-                      requiredFeatures: ["hit-test"],
-                    }}
-                    style={{
-                      border: "none",
-                      backgroundColor: "inherit",
-                      marginRight: "5px",
-                      color: "white",
-                    }}
-                    onClick={() => handleARButtonClick("ChickenRice")}
-                  />
+              <div style={{ display: "flex", alignItems: "center" }}>
+                  {arEnabled ? (
+                    <button
+                      style={{
+                        border: "none",
+                        backgroundColor: "inherit",
+                        marginRight: "5px",
+                        color: "white",
+                      }}
+                      onClick={toggleAR}
+                    >
+                      Exit AR
+                    </button>
+                  ) : (
+                    <ARButton
+                      sessionInit={{
+                        requiredFeatures: ["hit-test"],
+                      }}
+                      style={{
+                        border: "none",
+                        backgroundColor: "inherit",
+                        marginRight: "5px",
+                        color: "white",
+                      }}
+                      onClick={() => handleARButtonClick("ChickenRice")}
+                    />
+                  )}
                 </div>
               </MDBBtn>
             </MDBCardBody>
@@ -322,19 +459,33 @@ export default function App() {
               <MDBCardTitle>Soup</MDBCardTitle>
               <MDBCardTitle>Price: ₹ 140</MDBCardTitle>
               <MDBBtn>
-                <div style={{ display: "flex", alignItems: "center" }}>
-                  <ARButton
-                    sessionInit={{
-                      requiredFeatures: ["hit-test"],
-                    }}
-                    style={{
-                      border: "none",
-                      backgroundColor: "inherit",
-                      marginRight: "5px",
-                      color: "white",
-                    }}
-                    onClick={() => handleARButtonClick("Soup")}
-                  />
+              <div style={{ display: "flex", alignItems: "center" }}>
+                  {arEnabled ? (
+                    <button
+                      style={{
+                        border: "none",
+                        backgroundColor: "inherit",
+                        marginRight: "5px",
+                        color: "white",
+                      }}
+                      onClick={toggleAR}
+                    >
+                      Exit AR
+                    </button>
+                  ) : (
+                    <ARButton
+                      sessionInit={{
+                        requiredFeatures: ["hit-test"],
+                      }}
+                      style={{
+                        border: "none",
+                        backgroundColor: "inherit",
+                        marginRight: "5px",
+                        color: "white",
+                      }}
+                      onClick={() => handleARButtonClick("Soup")}
+                    />
+                  )}
                 </div>
               </MDBBtn>
             </MDBCardBody>
@@ -353,18 +504,32 @@ export default function App() {
               <MDBCardTitle>Price: ₹ 80</MDBCardTitle>
               <MDBBtn>
                 <div style={{ display: "flex", alignItems: "center" }}>
-                  <ARButton
-                    sessionInit={{
-                      requiredFeatures: ["hit-test"],
-                    }}
-                    style={{
-                      border: "none",
-                      backgroundColor: "inherit",
-                      marginRight: "5px",
-                      color: "white",
-                    }}
-                    onClick={() => handleARButtonClick("Gravy")}
-                  />
+                  {arEnabled ? (
+                    <button
+                      style={{
+                        border: "none",
+                        backgroundColor: "inherit",
+                        marginRight: "5px",
+                        color: "white",
+                      }}
+                      onClick={toggleAR}
+                    >
+                      Exit AR
+                    </button>
+                  ) : (
+                    <ARButton
+                      sessionInit={{
+                        requiredFeatures: ["hit-test"],
+                      }}
+                      style={{
+                        border: "none",
+                        backgroundColor: "inherit",
+                        marginRight: "5px",
+                        color: "white",
+                      }}
+                      onClick={() => handleARButtonClick("Gravy")}
+                    />
+                  )}
                 </div>
               </MDBBtn>
             </MDBCardBody>
@@ -373,7 +538,7 @@ export default function App() {
       </MDBRow>
       <Canvas>
         <XR>
-          <XrHitModel selectedFood={selectedFood}/>
+          <XrHitModel selectedFood={selectedFood} />
         </XR>
       </Canvas>
     </div>
