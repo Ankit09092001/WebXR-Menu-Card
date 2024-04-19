@@ -20,6 +20,7 @@ const XrHitModel = (props) => {
   const { isPresenting } = useXR();
   const [placingEnabled, setPlacingEnabled] = useState(true);
   const orbitControlsRef = useRef();
+  const { camera } = useThree(); // Getting the camera from useThree
 
   useEffect(() => {
     if (models.length > 0) {
@@ -107,6 +108,7 @@ const XrHitModel = (props) => {
         ref={orbitControlsRef}
         enabled={!placingEnabled && isPresenting}
         autoRotate={!placingEnabled}
+        args={[camera, orbitControlsRef.current]} // Pass the camera to OrbitControls
       />
       <ambientLight />
       {isPresenting &&
@@ -118,7 +120,7 @@ const XrHitModel = (props) => {
               {!placingEnabled && (
                 <OrbitControls
                   enabled={isPresenting}
-                  args={[null, orbitControlsRef.current]}
+                  args={[camera, orbitControlsRef.current]} // Pass the camera to OrbitControls
                 />
               )}
             </group>
