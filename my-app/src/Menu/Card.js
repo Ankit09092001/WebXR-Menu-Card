@@ -38,7 +38,7 @@ export default function App() {
 
   const handleARButtonClick = (title) => {
     setSelectedFood(title);
-    setArEnabled((prevArEnabled) => !prevArEnabled);
+    // setArEnabled((prevArEnabled) => !prevArEnabled);
   };
 
   const [arEnabled, setArEnabled] = useState(false);
