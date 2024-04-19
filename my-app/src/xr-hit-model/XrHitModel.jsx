@@ -20,7 +20,7 @@ const XrHitModel = (props) => {
   const { isPresenting } = useXR();
   const [placingEnabled, setPlacingEnabled] = useState(true);
   const orbitControlsRef = useRef();
-  const { camera } = useThree(); // Getting the camera from useThree
+  const { camera } = useThree();
 
   useEffect(() => {
     if (models.length > 0) {
@@ -38,14 +38,12 @@ const XrHitModel = (props) => {
 
   useHitTest((hitMatrix, hit) => {
     if (!placingEnabled) {
-      // If not placing, show reticle but don't update position
       reticleRef.current.visible = true;
       reticleRef.current.rotation.set(-Math.PI / 2, 0, 0);
       return;
     }
 
     if (hit) {
-      // If hit, show reticle and update its position
       reticleRef.current.visible = true;
       hitMatrix.decompose(
         reticleRef.current.position,
@@ -54,7 +52,6 @@ const XrHitModel = (props) => {
       );
       reticleRef.current.rotation.set(-Math.PI / 2, 0, 0);
     } else {
-      // If not hit, hide reticle
       reticleRef.current.visible = false;
     }
   });
@@ -104,25 +101,21 @@ const XrHitModel = (props) => {
 
   return (
     <>
+      <ambientLight />
       <OrbitControls
         ref={orbitControlsRef}
         enabled={!placingEnabled && isPresenting}
         autoRotate={!placingEnabled}
-        args={[camera, orbitControlsRef.current]} // Pass the camera to OrbitControls
+        enablePan={false}
+        enableZoom={true}
+        args={[camera, orbitControlsRef.current]}
       />
-      <ambientLight />
       {isPresenting &&
         models.map(({ position, id }) => {
           const SelectedModel = selectedComponent;
           return (
             <group key={id} position={position}>
               <SelectedModel />
-              {!placingEnabled && (
-                <OrbitControls
-                  enabled={isPresenting}
-                  args={[camera, orbitControlsRef.current]} // Pass the camera to OrbitControls
-                />
-              )}
             </group>
           );
         })}
