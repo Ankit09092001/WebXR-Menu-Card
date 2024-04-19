@@ -1,25 +1,33 @@
 import { OrbitControls } from "@react-three/drei";
 import { useThree } from "@react-three/fiber";
 import { Interactive, useHitTest, useXR } from "@react-three/xr";
-import { useRef, useState,useEffect } from "react";
+import { useRef, useState, useEffect } from "react";
 import Model from "./Model";
 import Chilli from "./Chilli";
 import Lolipop from "./Lolipop";
-import Fried from './Fried';
-import Soup from './Soup';
-import EggSchezwan from './EggSchezwan';
-import ChickenRice from './ChickenRice';
-import Gravy from './Gravy';
-import Manchurian from './Manchurian';
-import Noodles from './Noodles';
-import SchezwanRice from './SchezwanRice';
+import Fried from "./Fried";
+import Soup from "./Soup";
+import EggSchezwan from "./EggSchezwan";
+import ChickenRice from "./ChickenRice";
+import Gravy from "./Gravy";
+import Manchurian from "./Manchurian";
+import Noodles from "./Noodles";
+import SchezwanRice from "./SchezwanRice";
 
 const XrHitModel = (props) => {
   const reticleRef = useRef();
   const [models, setModels] = useState([]);
-   const { isPresenting } = useXR();
+  const { isPresenting } = useXR();
+  const [placingEnabled, setPlacingEnabled] = useState(true);
+  const orbitControlsRef = useRef();
 
-
+  useEffect(() => {
+    if (models.length > 0) {
+      setPlacingEnabled(false);
+    } else {
+      setPlacingEnabled(true);
+    }
+  }, [models]);
 
   useThree(({ camera }) => {
     if (!isPresenting) {
@@ -28,16 +36,30 @@ const XrHitModel = (props) => {
   });
 
   useHitTest((hitMatrix, hit) => {
-    hitMatrix.decompose(
-      reticleRef.current.position,
-      reticleRef.current.quaternion,
-      reticleRef.current.scale
-    );
+    if (!placingEnabled) {
+      // If not placing, show reticle but don't update position
+      reticleRef.current.visible = true;
+      reticleRef.current.rotation.set(-Math.PI / 2, 0, 0);
+      return;
+    }
 
-    reticleRef.current.rotation.set(-Math.PI / 2, 0, 0);
+    if (hit) {
+      // If hit, show reticle and update its position
+      reticleRef.current.visible = true;
+      hitMatrix.decompose(
+        reticleRef.current.position,
+        reticleRef.current.quaternion,
+        reticleRef.current.scale
+      );
+      reticleRef.current.rotation.set(-Math.PI / 2, 0, 0);
+    } else {
+      // If not hit, hide reticle
+      reticleRef.current.visible = false;
+    }
   });
 
   const placeModel = (e) => {
+    if (!placingEnabled) return;
     let position = e.intersection.object.position.clone();
     let id = Date.now();
     setModels([{ position, id }]);
@@ -53,7 +75,7 @@ const XrHitModel = (props) => {
       break;
     case "Fried":
       selectedComponent = Fried;
-      break;  
+      break;
     case "ChickenRice":
       selectedComponent = ChickenRice;
       break;
@@ -74,19 +96,33 @@ const XrHitModel = (props) => {
       break;
     case "Soup":
       selectedComponent = Soup;
-      break;              
+      break;
     default:
       selectedComponent = Model;
   }
 
   return (
     <>
-      <OrbitControls />
+      <OrbitControls
+        ref={orbitControlsRef}
+        enabled={!placingEnabled && isPresenting}
+        autoRotate={!placingEnabled}
+      />
       <ambientLight />
       {isPresenting &&
         models.map(({ position, id }) => {
           const SelectedModel = selectedComponent;
-          return <SelectedModel key={id} position={position} />;
+          return (
+            <group key={id} position={position}>
+              <SelectedModel />
+              {!placingEnabled && (
+                <OrbitControls
+                  enabled={isPresenting}
+                  args={[null, orbitControlsRef.current]}
+                />
+              )}
+            </group>
+          );
         })}
       {isPresenting && (
         <Interactive onSelect={placeModel}>
