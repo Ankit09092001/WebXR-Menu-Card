@@ -2,12 +2,12 @@ import React, { useRef } from "react";
 import { useLoader } from "@react-three/fiber";
 import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader";
 
-const Model = ({ position, scale = [2, 2, 2], modelName }) => {
+const Model = ({ position, rotation, scale = [2, 2, 2], modelName }) => {
   const gltf = useLoader(GLTFLoader, `/models/Chilli.glb`);
   const modelRef = useRef();
 
   return (
-    <group ref={modelRef} position={position} scale={scale}>
+    <group ref={modelRef} position={position} rotation={rotation} scale={scale}>
       <primitive object={gltf.scene} />
     </group>
   );
