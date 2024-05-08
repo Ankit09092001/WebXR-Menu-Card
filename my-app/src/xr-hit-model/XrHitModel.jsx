@@ -58,57 +58,34 @@ const XrHitModel = (props) => {
     setModels([{ position, id }]);
   };
 
-  let selectedComponent;
-  switch (props.selectedFood) {
-    case "Chilli":
-      selectedComponent = Chilli;
-      break;
-    case "Lolipop":
-      selectedComponent = Lolipop;
-      break;
-    case "Fried":
-      selectedComponent = Fried;
-      break;
-    case "ChickenRice":
-      selectedComponent = ChickenRice;
-      break;
-    case "EggSchezwan":
-      selectedComponent = EggSchezwan;
-      break;
-    case "Gravy":
-      selectedComponent = Gravy;
-      break;
-    case "Manchurian":
-      selectedComponent = Manchurian;
-      break;
-    case "Noodles":
-      selectedComponent = Noodles;
-      break;
-    case "SchezwanRice":
-      selectedComponent = SchezwanRice;
-      break;
-    case "Soup":
-      selectedComponent = Soup;
-      break;
-    default:
-      selectedComponent = Model;
-  }
+  const selectedComponent = {
+    Chilli,
+    Lolipop,
+    Fried,
+    Soup,
+    EggSchezwan,
+    ChickenRice,
+    Gravy,
+    Manchurian,
+    Noodles,
+    SchezwanRice,
+  }[props.selectedFood] || Model;
 
   return (
     <>
       <ambientLight />
-      <OrbitControls
-        enabled={!placingEnabled && isPresenting}
-        enablePan={false}
-        enableZoom={true}
-        args={[camera]}
-      />
       {isPresenting &&
         models.map(({ position, id }) => {
           const SelectedModel = selectedComponent;
           return (
             <group key={id} position={position}>
               <SelectedModel />
+              <OrbitControls
+                enabled={!placingEnabled && isPresenting}
+                enablePan={false}
+                enableZoom={true}
+                args={[camera]}
+              />
             </group>
           );
         })}
