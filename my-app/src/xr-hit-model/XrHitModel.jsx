@@ -84,6 +84,7 @@ const XrHitModel = (props) => {
                 enabled={!placingEnabled && isPresenting}
                 enablePan={false}
                 enableZoom={true}
+                enableRotate={true}
                 args={[camera]}
               />
             </group>
