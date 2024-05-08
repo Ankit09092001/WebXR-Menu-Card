@@ -19,21 +19,10 @@ const XrHitModel = (props) => {
   const [models, setModels] = useState([]);
   const { isPresenting } = useXR();
   const [placingEnabled, setPlacingEnabled] = useState(true);
-  const orbitControlsRef = useRef();
   const { camera } = useThree();
-  const [selectedModelRotation, setSelectedModelRotation] = useState([0, 0, 0]);
-  const [isDragging, setIsDragging] = useState(false);
-  const [previousMousePosition, setPreviousMousePosition] = useState({
-    x: 0,
-    y: 0,
-  });
 
   useEffect(() => {
-    if (models.length > 0) {
-      setPlacingEnabled(false);
-    } else {
-      setPlacingEnabled(true);
-    }
+    setPlacingEnabled(models.length === 0);
   }, [models]);
 
   useThree(({ camera }) => {
@@ -67,39 +56,6 @@ const XrHitModel = (props) => {
     let position = e.intersection.object.position.clone();
     let id = Date.now();
     setModels([{ position, id }]);
-  };
-
-  const handleMouseDown = (event) => {
-    setIsDragging(true);
-    setPreviousMousePosition({
-      x: event.clientX,
-      y: event.clientY,
-    });
-  };
-
-  const handleMouseMove = (event) => {
-    if (!isDragging) return;
-
-    const { clientX, clientY } = event;
-    const deltaRotation = {
-      x: (clientY - previousMousePosition.y) * 0.01,
-      y: (clientX - previousMousePosition.x) * 0.01,
-    };
-
-    setSelectedModelRotation([
-      selectedModelRotation[0] + deltaRotation.x,
-      selectedModelRotation[1] + deltaRotation.y,
-      selectedModelRotation[2],
-    ]);
-
-    setPreviousMousePosition({
-      x: clientX,
-      y: clientY,
-    });
-  };
-
-  const handleMouseUp = () => {
-    setIsDragging(false);
   };
 
   let selectedComponent;
@@ -142,19 +98,17 @@ const XrHitModel = (props) => {
     <>
       <ambientLight />
       <OrbitControls
-        ref={orbitControlsRef}
         enabled={!placingEnabled && isPresenting}
-        autoRotate={!placingEnabled}
         enablePan={false}
         enableZoom={true}
-        args={[camera, orbitControlsRef.current]}
+        args={[camera]}
       />
       {isPresenting &&
         models.map(({ position, id }) => {
           const SelectedModel = selectedComponent;
           return (
             <group key={id} position={position}>
-              <SelectedModel rotation={selectedModelRotation} />
+              <SelectedModel />
             </group>
           );
         })}
@@ -163,13 +117,7 @@ const XrHitModel = (props) => {
           <mesh
             ref={reticleRef}
             rotation-x={-Math.PI / 2}
-            onPointerDown={handleMouseDown}
-            onPointerMove={handleMouseMove}
-            onPointerUp={handleMouseUp}
-            onPointerLeave={handleMouseUp}
-            onTouchStart={handleMouseDown}
-            onTouchMove={handleMouseMove}
-            onTouchEnd={handleMouseUp}
+            onClick={placeModel}
           >
             <ringGeometry args={[0.1, 0.25, 32]} />
             <meshStandardMaterial color={"white"} />
