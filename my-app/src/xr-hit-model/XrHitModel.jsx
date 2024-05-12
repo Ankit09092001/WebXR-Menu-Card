@@ -2,6 +2,8 @@ import { OrbitControls } from "@react-three/drei";
 import { useThree } from "@react-three/fiber";
 import { Interactive, useHitTest, useXR } from "@react-three/xr";
 import { useRef, useState, useEffect } from "react";
+import { useLoader } from "@react-three/fiber";
+import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader";
 import Model from "./Model";
 import Chilli from "./Chilli";
 import Lolipop from "./Lolipop";
@@ -20,7 +22,7 @@ const XrHitModel = (props) => {
   const { isPresenting } = useXR();
   const [placingEnabled, setPlacingEnabled] = useState(true);
   const { camera } = useThree();
-
+  const gltf = useLoader(GLTFLoader, `/models/Soup.glb`);
   useEffect(() => {
     setPlacingEnabled(models.length === 0);
   }, [models]);
@@ -79,7 +81,7 @@ const XrHitModel = (props) => {
           const SelectedModel = selectedComponent;
           return (
             <group key={id} position={position}>
-              <SelectedModel />
+              <SelectedModel position={position}/>
               <OrbitControls
                 enabled={!placingEnabled && isPresenting}
                 enablePan={false}
@@ -90,7 +92,7 @@ const XrHitModel = (props) => {
             </group>
           );
         })}
-      {isPresenting && (
+      {isPresenting && (  
         <Interactive onSelect={placeModel}>
           <mesh
             ref={reticleRef}
