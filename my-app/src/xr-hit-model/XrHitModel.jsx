@@ -83,11 +83,7 @@ const XrHitModel = (props) => {
             <group key={id} position={position}>
               <primitive object={gltf.scene} />
               <OrbitControls
-                enabled={!placingEnabled && isPresenting}
-                enablePan={false}
-                enableZoom={true}
-                enableRotate={true}
-                args={[camera]}
+                enableDamping dampingFactor={0.25} autoRotate
               />
             </group>
           );
