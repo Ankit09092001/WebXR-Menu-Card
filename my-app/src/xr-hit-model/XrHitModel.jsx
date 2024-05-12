@@ -22,7 +22,7 @@ const XrHitModel = (props) => {
   const { isPresenting } = useXR();
   const [placingEnabled, setPlacingEnabled] = useState(true);
   const { camera } = useThree();
-  const gltf = useLoader(GLTFLoader, `/models/Soup.glb`);
+  const gltf = useLoader(GLTFLoader, `/models/Lolipop.glb`);
   useEffect(() => {
     setPlacingEnabled(models.length === 0);
   }, [models]);
@@ -81,7 +81,7 @@ const XrHitModel = (props) => {
           const SelectedModel = selectedComponent;
           return (
             <group key={id} position={position}>
-              <SelectedModel position={position}/>
+              <primitive object={gltf.scene} />
               <OrbitControls
                 enabled={!placingEnabled && isPresenting}
                 enablePan={false}
