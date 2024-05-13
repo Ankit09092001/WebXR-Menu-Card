@@ -20,7 +20,7 @@ export default function App() {
     <>
       
 
-      <MDBNavbar expand='xl' dark bgColor='dark'>
+      <MDBNavbar expand='xl' light style={{ backgroundColor: '#FFFFE8' }}>
         <MDBContainer fluid>
           <MDBNavbarBrand href='/'>Chilli House</MDBNavbarBrand>
           <MDBNavbarToggler

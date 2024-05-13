@@ -1,43 +1,38 @@
 import React from 'react';
-import { MDBCarousel, MDBCarouselItem, MDBCarouselCaption } from 'mdb-react-ui-kit';
-import first from './Image/1.jpg';
-import second from './Image/2.jpg';
-import third from './Image/3.jpg';
-const styles = `
-  .carousel {
-    width: 100%;
-    max-width: 100%;
-    height: 85vh; /* Adjust the height to 70% of the viewport height */
-  }
-
-  .carousel-item img {
-    width: 100%;
-    height: 85vh;
-  }
-
-  .carousel-caption {
-    bottom: 20px;
-  }
-`;
+import { MDBCarousel, MDBCarouselItem } from 'mdb-react-ui-kit';
+import first from './Image/4.jpg';
+import second from './Image/9.jpg';
+import third from './Image/2.png';
 
 export default function App() {
   return (
     <>
-      <style>{styles}</style>
-      <MDBCarousel showIndicators showControls fade>
+      <style>
+        {`
+          .carousel-image {
+            width: 100%;
+          }
+
+          @media (min-width: 768px) {
+            .carousel-image {
+              max-width: 100%;
+              max-height: 630px; /* Adjust as needed */
+              margin: 0 auto; /* Center the image */
+            }
+          }
+        `}
+      </style>
+      <MDBCarousel showIndicators showControls fade interval={100000}>
         <MDBCarouselItem itemId={1}>
-          <img src={first} className='d-block w-100' alt='...' />
-          
+          <img src={first} className='d-block img-fluid carousel-image' alt='...' />
         </MDBCarouselItem>
 
         <MDBCarouselItem itemId={2}>
-          <img src={second} className='d-block w-100' alt='...' />
-         
+          <img src={second} className='d-block img-fluid carousel-image' alt='...' />
         </MDBCarouselItem>
 
         <MDBCarouselItem itemId={3}>
-          <img src={third} className='d-block w-100' alt='...' />
-         
+          <img src={third} className='d-block img-fluid carousel-image' alt='...' />
         </MDBCarouselItem>
       </MDBCarousel>
     </>

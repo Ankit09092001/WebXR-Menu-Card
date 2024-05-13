@@ -2,8 +2,6 @@ import { OrbitControls } from "@react-three/drei";
 import { useThree } from "@react-three/fiber";
 import { Interactive, useHitTest, useXR } from "@react-three/xr";
 import { useRef, useState, useEffect } from "react";
-import { useLoader } from "@react-three/fiber";
-import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader";
 import Model from "./Model";
 import Chilli from "./Chilli";
 import Lolipop from "./Lolipop";
@@ -21,8 +19,7 @@ const XrHitModel = (props) => {
   const [models, setModels] = useState([]);
   const { isPresenting } = useXR();
   const [placingEnabled, setPlacingEnabled] = useState(true);
-  const { camera } = useThree();
-  const gltf = useLoader(GLTFLoader, `/models/Lolipop.glb`);
+
   useEffect(() => {
     setPlacingEnabled(models.length === 0);
   }, [models]);
@@ -50,7 +47,7 @@ const XrHitModel = (props) => {
       reticleRef.current.visible = false;
     }
   });
-
+  let SelectedModel;
   const placeModel = (e) => {
     if (!placingEnabled) return;
     let position = e.intersection.object.position.clone();
@@ -87,12 +84,14 @@ const XrHitModel = (props) => {
         })}
       {isPresenting && (
         <Interactive onSelect={placeModel}>
-          <mesh ref={reticleRef} onClick={placeModel}>
+          <mesh ref={reticleRef} rotation-x={-Math.PI / 2} onClick={placeModel}>
             <ringGeometry args={[0.1, 0.25, 30]} />
             <meshStandardMaterial color={"white"} />
           </mesh>
         </Interactive>
       )}
+      
+
     </>
   );
 };

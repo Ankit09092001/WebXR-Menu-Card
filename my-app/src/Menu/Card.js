@@ -50,9 +50,9 @@ export default function App() {
   return (
     <div>
 
-      <MDBRow className="row-cols-1 row-cols-md-4 g-4 p-4">
+      <MDBRow  className="row-cols-1 row-cols-md-4 g-4 p-4">
         <MDBCol>
-          <MDBCard>
+          <MDBCard style={{ backgroundColor: '#FFFFE8' }}>
             <MDBCardImage
               src={Chilli}
               alt="Burger"
@@ -93,10 +93,10 @@ export default function App() {
                 </div>
               </MDBBtn>
             </MDBCardBody>
-          </MDBCard>
+          </MDBCard >
         </MDBCol>
         <MDBCol>
-          <MDBCard>
+          <MDBCard style={{ backgroundColor: '#FFFFE8' }}>
             <MDBCardImage
               src={Lolipop}
               alt="Pizza"
@@ -140,7 +140,7 @@ export default function App() {
           </MDBCard>
         </MDBCol>
         <MDBCol>
-          <MDBCard>
+          <MDBCard style={{ backgroundColor: '#FFFFE8' }}>
             <MDBCardImage
               src={Legpiece}
               alt="Cake"
@@ -184,7 +184,7 @@ export default function App() {
           </MDBCard>
         </MDBCol>
         <MDBCol>
-          <MDBCard>
+          <MDBCard style={{ backgroundColor: '#FFFFE8' }}>
             <MDBCardImage
               src={Fried}
               alt="Muffin"
@@ -228,7 +228,7 @@ export default function App() {
           </MDBCard>
         </MDBCol>
         <MDBCol>
-          <MDBCard>
+          <MDBCard style={{ backgroundColor: '#FFFFE8' }}>
             <MDBCardImage
               src={Noodles}
               alt="Muffin"
@@ -272,7 +272,7 @@ export default function App() {
           </MDBCard>
         </MDBCol>
         <MDBCol>
-          <MDBCard>
+          <MDBCard style={{ backgroundColor: '#FFFFE8' }}>
             <MDBCardImage
               src={SchezwanRice}
               alt="Muffin"
@@ -316,7 +316,7 @@ export default function App() {
           </MDBCard>
         </MDBCol>
         <MDBCol>
-          <MDBCard>
+          <MDBCard style={{ backgroundColor: '#FFFFE8' }}>
             <MDBCardImage
               src={eggschezwan}
               alt="Muffin"
@@ -360,7 +360,7 @@ export default function App() {
           </MDBCard>
         </MDBCol>
         <MDBCol>
-          <MDBCard>
+          <MDBCard style={{ backgroundColor: '#FFFFE8' }}>
             <MDBCardImage
               src={Manchurian}
               alt="Muffin"
@@ -404,7 +404,7 @@ export default function App() {
           </MDBCard>
         </MDBCol>
         <MDBCol>
-          <MDBCard>
+          <MDBCard style={{ backgroundColor: '#FFFFE8' }}>
             <MDBCardImage
               src={ChickenRice}
               alt="Muffin"
@@ -448,7 +448,7 @@ export default function App() {
           </MDBCard>
         </MDBCol>
         <MDBCol>
-          <MDBCard>
+          <MDBCard style={{ backgroundColor: '#FFFFE8' }}>
             <MDBCardImage
               src={Soup}
               alt="Muffin"
@@ -492,7 +492,7 @@ export default function App() {
           </MDBCard>
         </MDBCol>
         <MDBCol>
-          <MDBCard>
+          <MDBCard style={{ backgroundColor: '#FFFFE8' }}>
             <MDBCardImage
               src={Gravy}
               alt="Muffin"

@@ -26,7 +26,7 @@ export default function App() {
 
   return (
     <>
-      <MDBCard alignment='center'>
+      <MDBCard alignment='center' style={{ backgroundColor: '#FFFFE8' }}>
         <MDBCardBody>
           <MDBCardTitle>Welcome to Hotel CHilli House - WebXR Menu Card</MDBCardTitle>
           <MDBCardText>

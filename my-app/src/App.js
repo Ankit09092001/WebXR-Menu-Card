@@ -11,6 +11,7 @@ function App() {
         <Routes>
           <Route exact path="/" element={<Home />} />
           <Route path="/menu" element={<Menu />} /> {/* Added leading slash */}
+          
         </Routes>
       </Router>
     </div>
