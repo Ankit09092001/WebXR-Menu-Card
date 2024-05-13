@@ -36,8 +36,6 @@ const XrHitModel = (props) => {
 
   useHitTest((hitMatrix, hit) => {
     if (!placingEnabled) {
-      // reticleRef.current.visible = true;
-      // reticleRef.current.rotation.set(-Math.PI / 2, 0, 0);
       return;
     }
 
@@ -48,7 +46,6 @@ const XrHitModel = (props) => {
         reticleRef.current.quaternion,
         reticleRef.current.scale
       );
-      // reticleRef.current.rotation.set(-Math.PI / 2, 0, 0);
     } else {
       reticleRef.current.visible = false;
     }
@@ -83,22 +80,14 @@ const XrHitModel = (props) => {
           const SelectedModel = selectedComponent;
           return (
             <group key={id} position={position}>
-              {/* <primitive object={gltf.scene} /> */}
               <SelectedModel />
-              <OrbitControls
-                enableDamping
-                dampingFactor={0.25}
-                enableZoom
-                enableRotate
-                enablePan={false}
-                args={[camera]}
-              />
+              <OrbitControls />
             </group>
           );
         })}
       {isPresenting && (
         <Interactive onSelect={placeModel}>
-          <mesh ref={reticleRef} rotation-x={-Math.PI / 2} onClick={placeModel}>
+          <mesh ref={reticleRef} onClick={placeModel}>
             <ringGeometry args={[0.1, 0.25, 30]} />
             <meshStandardMaterial color={"white"} />
           </mesh>
