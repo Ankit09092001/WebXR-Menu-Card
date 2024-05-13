@@ -28,6 +28,7 @@ const XrHitModel = (props) => {
   }, [models]);
 
   useThree(({ camera }) => {
+    console.log("Camera Position:", camera.position);
     if (!isPresenting) {
       camera.position.z = 3;
     }
@@ -35,8 +36,8 @@ const XrHitModel = (props) => {
 
   useHitTest((hitMatrix, hit) => {
     if (!placingEnabled) {
-      reticleRef.current.visible = true;
-      reticleRef.current.rotation.set(-Math.PI / 2, 0, 0);
+      // reticleRef.current.visible = true;
+      // reticleRef.current.rotation.set(-Math.PI / 2, 0, 0);
       return;
     }
 
@@ -47,7 +48,7 @@ const XrHitModel = (props) => {
         reticleRef.current.quaternion,
         reticleRef.current.scale
       );
-      reticleRef.current.rotation.set(-Math.PI / 2, 0, 0);
+      // reticleRef.current.rotation.set(-Math.PI / 2, 0, 0);
     } else {
       reticleRef.current.visible = false;
     }
@@ -60,18 +61,19 @@ const XrHitModel = (props) => {
     setModels([{ position, id }]);
   };
 
-  const selectedComponent = {
-    Chilli,
-    Lolipop,
-    Fried,
-    Soup,
-    EggSchezwan,
-    ChickenRice,
-    Gravy,
-    Manchurian,
-    Noodles,
-    SchezwanRice,
-  }[props.selectedFood] || Model;
+  const selectedComponent =
+    {
+      Chilli,
+      Lolipop,
+      Fried,
+      Soup,
+      EggSchezwan,
+      ChickenRice,
+      Gravy,
+      Manchurian,
+      Noodles,
+      SchezwanRice,
+    }[props.selectedFood] || Model;
 
   return (
     <>
@@ -81,21 +83,23 @@ const XrHitModel = (props) => {
           const SelectedModel = selectedComponent;
           return (
             <group key={id} position={position}>
-              <primitive object={gltf.scene} />
+              {/* <primitive object={gltf.scene} /> */}
+              <SelectedModel />
               <OrbitControls
-                enableDamping dampingFactor={0.25} autoRotate
+                enableDamping
+                dampingFactor={0.25}
+                enableZoom
+                enableRotate
+                enablePan={false}
+                args={[camera]}
               />
             </group>
           );
         })}
-      {isPresenting && (  
+      {isPresenting && (
         <Interactive onSelect={placeModel}>
-          <mesh
-            ref={reticleRef}
-            rotation-x={-Math.PI / 2}
-            onClick={placeModel}
-          >
-            <ringGeometry args={[0.1, 0.25, 32]} />
+          <mesh ref={reticleRef} rotation-x={-Math.PI / 2} onClick={placeModel}>
+            <ringGeometry args={[0.1, 0.25, 30]} />
             <meshStandardMaterial color={"white"} />
           </mesh>
         </Interactive>
