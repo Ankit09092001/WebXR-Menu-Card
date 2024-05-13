@@ -2,7 +2,7 @@ import React, { useRef } from "react";
 import { useLoader } from "@react-three/fiber";
 import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader";
 
-const Model = ({ position, scale = [2, 2, 2], modelName }) => {
+const Model = ({ position, scale = [8, 8, 8], modelName }) => {
   const gltf = useLoader(GLTFLoader, `/models/Fried.glb`);
   const modelRef = useRef();
 
