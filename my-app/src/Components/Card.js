@@ -32,7 +32,7 @@ export default function App() {
           <MDBCardText>
             <span className="animated-text">{animatedText}</span>
           </MDBCardText>
-          <MDBBtn href='#'>Go to About</MDBBtn>
+          <MDBBtn href='/menu'>Go to Menu</MDBBtn>
         </MDBCardBody>
       </MDBCard>
     </>

@@ -11,7 +11,11 @@ import {
 
 export default function App() {
   return (
-    <MDBFooter className="text-center" color="dark" style={{ backgroundColor: '#EF6262' }}>
+    <MDBFooter
+      className="text-center"
+      color="dark"
+      style={{ backgroundColor: "#EF6262" }}
+    >
       <MDBContainer className="p-4">
         <section className="mb-4">
           <MDBBtn
@@ -123,8 +127,8 @@ export default function App() {
         style={{ backgroundColor: "rgba(0, 0, 0, 0.2)" }}
       >
         © 2024 Copyright:
-        <a className="text-white" href="https://mdbootstrap.com/">
-          WebXR Menu Card
+        <a className="text-black" href="">
+          Chilli House
         </a>
       </div>
     </MDBFooter>

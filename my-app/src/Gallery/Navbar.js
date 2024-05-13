@@ -47,7 +47,7 @@ export default function App() {
                 <MDBNavbarLink href='/gallery'>Gallery</MDBNavbarLink>
               </MDBNavbarItem>
               <MDBNavbarItem>
-                <MDBNavbarLink href='/about'>About</MDBNavbarLink>
+                <MDBNavbarLink href='about'>About</MDBNavbarLink>
               </MDBNavbarItem>
             </MDBNavbarNav>
           </MDBCollapse>

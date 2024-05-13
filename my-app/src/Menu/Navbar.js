@@ -44,10 +44,10 @@ export default function App() {
                 <MDBNavbarLink href='/menu'>Menu Card</MDBNavbarLink>
               </MDBNavbarItem>
               <MDBNavbarItem>
-                <MDBNavbarLink href='#'>Contact</MDBNavbarLink>
+                <MDBNavbarLink href='/gallery'>Gallery</MDBNavbarLink>
               </MDBNavbarItem>
               <MDBNavbarItem>
-                <MDBNavbarLink href='#'>About</MDBNavbarLink>
+                <MDBNavbarLink href='/about'>About</MDBNavbarLink>
               </MDBNavbarItem>
             </MDBNavbarNav>
           </MDBCollapse>
