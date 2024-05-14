@@ -2,7 +2,7 @@ import React, { useRef } from "react";
 import { useLoader } from "@react-three/fiber";
 import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader";
 
-const Model = ({ position, scale = [6, 6, 6], modelName }) => {
+const Model = ({ position, scale = [5, 5, 5], modelName }) => {
   const gltf = useLoader(GLTFLoader, `/models/Manchurian.glb`);
   const modelRef = useRef();
 
