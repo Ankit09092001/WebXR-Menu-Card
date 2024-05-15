@@ -22,7 +22,7 @@ export default function App() {
           }
         `}
       </style>
-      <MDBCarousel showIndicators showControls fade interval={1000}>
+      <MDBCarousel showIndicators showControls fade interval={10000}>
         <MDBCarouselItem itemId={1}>
           <img src={first} className='d-block img-fluid carousel-image' alt='...' />
         </MDBCarouselItem>
